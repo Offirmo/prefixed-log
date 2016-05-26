@@ -22,7 +22,7 @@ logger({foo: 'bar'})    --> * [foo] { foo: 'bar' }
 
 If you just want to console.log, no need to provide the function :
 ```js
-const logger = makePrefixedLogger('* [foo]'
+const logger = makePrefixedLogger('* [foo]')
 
 logger('Hello', 42)     --> * [foo] Hello 42
 ```
@@ -40,7 +40,7 @@ logger('Hello %d', 33)  --> 1464255584288 Hello 33
 There are secret options :
 
 ```js
-const logger = makePrefixedLogger('* [foo]', , {
+const logger = makePrefixedLogger('* [foo]', {
   // default values :
   spacer: ' ',          ///< spacer that will be used between the prefix and the 1st arg *if it is a string*
   spacerAlt: '',        ///< spacer that will be used between the prefix and the 1st arg *if it is NOT a string*
