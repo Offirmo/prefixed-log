@@ -1,0 +1,3 @@
+# prefixed-log
+A wrapper around a console.log compatible function to add a prefix
+...
