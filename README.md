@@ -1,6 +1,9 @@
 # prefixed-log
 A wrapper around a console.log compatible function to add a prefix to the output.
 
+[![NPM version](https://badge.fury.io/js/prefixed-log.png)](http://badge.fury.io/js/prefixed-log)
+[![license](http://img.shields.io/badge/license-public_domain-brightgreen.png)](http://unlicense.org/)
+
 A common requirement when debugging. The trick is that, when the 1st arg is a string :
 * `console.log/warn/etc.` have a special interface which allows to replace `%d` placeholders with remaining params
 * `console.log/warn/etc.` add a spacing between params when not using placeholder
