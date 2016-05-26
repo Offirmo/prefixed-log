@@ -1,6 +1,6 @@
 {
   "name": "prefixed-log",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A wrapper around a console.log compatible function to add a prefix to output",
   "main": "index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "lodash.isfunction": "^3.0.8",
+    "lodash.isobject": "^3.0.2",
     "lodash.isstring": "^4.0.1"
   }
 }

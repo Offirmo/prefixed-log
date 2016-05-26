@@ -16,9 +16,9 @@ logger('Hello', 42)
 logger('Hello %d', 33)
 logger({foo: 'bar'})
 
-const logger1 = makePrefixedLogger('- [p1]', console.log.bind(console))
-const logger2 = makePrefixedLogger('* P2:', console.log.bind(console))
-const logger3 = makePrefixedLogger(() => Date.now(), console.log.bind(console), {
+const logger1 = makePrefixedLogger('- [p1]')
+const logger2 = makePrefixedLogger('* P2:', console.warn.bind(console))
+const logger3 = makePrefixedLogger(() => Date.now(), {
     separator: ' - ',
     separator_alt: ' -'
 })

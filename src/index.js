@@ -1,7 +1,11 @@
 const isFunction = require('lodash.isfunction')
 const isString = require('lodash.isstring')
+const isObject = require('lodash.isobject')
 
-function makePrefixedLogger(prefix, log_fn, options = {}) {
+function makePrefixedLogger(prefix, logFn, options = {}) {
+    if (isObject(logFn))
+        [logFn, options] = [undefined, logFn]
+    logFn = logFn || console.log.bind(console)
     options.spacerAlt = options.spacerAlt || options.spacer || ''
     options.spacer = options.spacer || ' '
     options.prefix = isFunction(prefix) ? prefix : () => prefix
@@ -11,9 +15,9 @@ function makePrefixedLogger(prefix, log_fn, options = {}) {
         if (! options.isEnabled()) return
 
         if (isString(param1))
-            console.log(options.prefix() + options.spacer + param1, ...rest)
+            logFn(options.prefix() + options.spacer + param1, ...rest)
         else
-            console.log(options.prefix() + options.spacerAlt, param1, ...rest)
+            logFn(options.prefix() + options.spacerAlt, param1, ...rest)
     }
 }
 
