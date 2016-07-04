@@ -1,6 +1,6 @@
 {
   "name": "prefixed-log",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A wrapper around a console.log compatible function to add a prefix to output",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "url": "https://github.com/Offirmo/prefixed-log/issues"
   },
   "homepage": "https://github.com/Offirmo/prefixed-log#readme",
-  "main": "dist/node-legacy.js",
+  "main": "index.js",
   "jsnext:main": "src/index.js",
   "browser": "dist/index.browser.js",
   "dependencies": {

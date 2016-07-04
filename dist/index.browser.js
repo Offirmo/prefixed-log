@@ -6,6 +6,8 @@ var isFunction = _interopDefault(require('lodash.isfunction'));
 var isString = _interopDefault(require('lodash.isstring'));
 var isObject = _interopDefault(require('lodash.isobject'));
 
+console.log('PREFIXED-LOG hello from dist/browser');
+
 function makePrefixedLogger(prefix, logFn) {
 	var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
 
@@ -24,7 +26,7 @@ function makePrefixedLogger(prefix, logFn) {
 		return true;
 	};
 
-	return function log(param1) {
+	var logger = function log(param1) {
 		if (!options.isEnabled()) return;
 
 		for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -33,6 +35,10 @@ function makePrefixedLogger(prefix, logFn) {
 
 		if (isString(param1)) logFn.apply(undefined, [options.prefix() + options.spacer + param1].concat(rest));else logFn.apply(undefined, [options.prefix() + options.spacerAlt, param1].concat(rest));
 	};
+
+	logger.__src = 'dist/browser'; // WIP to debug module resolution
+
+	return logger;
 }
 
 module.exports = makePrefixedLogger;

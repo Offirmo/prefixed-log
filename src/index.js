@@ -2,6 +2,9 @@ import isFunction from 'lodash.isfunction'
 import isString from 'lodash.isstring'
 import isObject from 'lodash.isobject'
 
+
+console.log('PREFIXED-LOG hello from ???')
+
 function makePrefixedLogger(prefix, logFn, options = {}) {
 	if (isObject(logFn))
 		[logFn, options] = [undefined, logFn]
@@ -11,7 +14,7 @@ function makePrefixedLogger(prefix, logFn, options = {}) {
 	options.prefix = isFunction(prefix) ? prefix : () => prefix
 	options.isEnabled = isFunction(options.isEnabled) ? options.isEnabled : () => true
 
-	return function log(param1, ...rest) {
+	const logger = function log(param1, ...rest) {
 		if (!options.isEnabled()) return
 
 		if (isString(param1))
@@ -19,6 +22,11 @@ function makePrefixedLogger(prefix, logFn, options = {}) {
 		else
 			logFn(options.prefix() + options.spacerAlt, param1, ...rest)
 	}
+
+	logger.__src = '???' // WIP to debug module resolution
+
+	return logger
 }
+
 
 module.exports = makePrefixedLogger
