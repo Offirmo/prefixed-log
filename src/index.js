@@ -3,12 +3,13 @@ import isString from 'lodash.isstring'
 import isObject from 'lodash.isobject'
 
 
-console.log('PREFIXED-LOG hello from ???')
+//console.log('PREFIXED-LOG hello from ???')
 
 function makePrefixedLogger(prefix, logFn, options = {}) {
 	if (isObject(logFn))
 		[logFn, options] = [undefined, logFn]
 	logFn = logFn || console.log.bind(console)
+
 	options.spacerAlt = options.spacerAlt || options.spacer || ''
 	options.spacer = options.spacer || ' '
 	options.prefix = isFunction(prefix) ? prefix : () => prefix

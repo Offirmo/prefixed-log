@@ -1,6 +1,6 @@
 {
   "name": "prefixed-log",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "A wrapper around a console.log compatible function to add a prefix to output",
   "repository": {
     "type": "git",

@@ -12,18 +12,22 @@ const pkg = require('../package.json');
 const MODULE_NAME = pkg.name;
 
 const bundles = [
+	// ES6 for rollup
 	{
 		format: 'es6', ext: '.es6.js', plugins: [],
 		babelPresets: ['stage-1'], babelPlugins: []
 	},
+	// "current" version
 	{
 		format: 'cjs', ext: '.node6.js', plugins: [],
 		babelPresets: ['es2015-node6'], babelPlugins: []
 	},
+	// "stable" version
 	{
 		format: 'cjs', ext: '.node4.js', plugins: [],
 		babelPresets: ['es2015-node4'], babelPlugins: []
 	},
+	// all < stable
 	{
 		format: 'cjs', ext: '.node-legacy.js', plugins: [],
 		babelPresets: ['es2015'], babelPlugins: []

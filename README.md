@@ -47,3 +47,24 @@ const logger = makePrefixedLogger('* [foo]', {
   isEnabled: () => true ///< nothing will be displayed at all if it returns false (useful for disabling debug)
 })
 ```
+
+## The secret plan
+
+While this module is a real module (I'm using it), it serves a secondary purpose :
+experimenting a "modern" (typescript or ES6) module consumption by various environments, including legacy.
+
+This module is aiming at having optimal consumption by :
+* typescript 1 & 2
+  * https://www.typescriptlang.org/docs/handbook/modules.html
+  * https://blog.oio.de/2014/01/31/an-introduction-to-typescript-module-system/
+  * https://github.com/basarat/ts-npm-module-consume
+  * http://stackoverflow.com/questions/12687779/how-do-you-produce-a-d-ts-typings-definition-file-from-an-existing-javascript
+  * https://www.typescriptlang.org/docs/handbook/writing-declaration-files.html
+* ES6
+  * mainly for rollup tree-shaking (jsnext)
+    * https://github.com/rollup/rollup
+* node 6, 4 and legacy
+* browser
+  * UMD and minification
+ 
+
