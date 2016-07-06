@@ -24,6 +24,7 @@
     "test": "test"
   },
   "dependencies": {
+    "lodash": "^4.13.1",
     "lodash.isfunction": "^3.0.8",
     "lodash.isobject": "^3.0.2",
     "lodash.isstring": "^4.0.1",

@@ -1,6 +1,6 @@
-import isFunction from 'lodash.isfunction'
-import isString from 'lodash.isstring'
-import isObject from 'lodash.isobject'
+//import { isFunction, isString, isObject } from 'lodash.isfunction'
+import isString from 'lodash/isstring'
+import isObject from 'lodash/isobject'
 
 
 //console.log('PREFIXED-LOG hello from ???')

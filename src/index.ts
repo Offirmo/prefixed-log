@@ -1,6 +1,6 @@
-import isFunction from 'lodash.isfunction'
-import isString from 'lodash.isstring'
-import isObject from 'lodash.isobject'
+import { isFunction } from 'lodash'
+import isString from 'lodash/isstring'
+import isObject from 'lodash/isobject'
 
 // http://stackoverflow.com/questions/12766528/build-a-function-object-with-properties-in-typescript
 

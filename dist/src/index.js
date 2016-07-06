@@ -1,6 +1,6 @@
-import isFunction from 'lodash.isfunction';
-import isString from 'lodash.isstring';
-import isObject from 'lodash.isobject';
+import { isFunction } from 'lodash';
+import isString from 'lodash/isstring';
+import isObject from 'lodash/isobject';
 export default function makePrefixedLogger(prefix, logFn, options = {}) {
     if (isObject(logFn))
         [logFn, options] = [undefined, logFn];
