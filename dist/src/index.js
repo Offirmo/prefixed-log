@@ -1,23 +1,23 @@
-import { isFunction } from 'lodash';
-import isString from 'lodash/isstring';
-import isObject from 'lodash/isobject';
-export default function makePrefixedLogger(prefix, logFn, options = {}) {
-    if (isObject(logFn))
-        [logFn, options] = [undefined, logFn];
-    logFn = logFn || console.log.bind(console);
-    options.spacerAlt = options.spacerAlt || options.spacer || '';
-    options.spacer = options.spacer || ' ';
-    options.prefix = isFunction(prefix) ? prefix : () => prefix;
-    options.isEnabled = isFunction(options.isEnabled) ? options.isEnabled : () => true;
+import * as _ from 'lodash';
+export default function makePrefixedLogger(prefix, logFnParam, optionsParam) {
+    if (_.isObject(logFnParam))
+        [logFnParam, optionsParam] = [undefined, logFnParam];
+    const options = {
+        logFn: logFnParam || console.log.bind(console),
+        spacerAlt: optionsParam.spacerAlt || optionsParam.spacer || '',
+        spacer: optionsParam.spacer || ' ',
+        prefix: (_.isFunction(prefix) ? prefix : () => prefix),
+        isEnabled: (_.isFunction(optionsParam.isEnabled) ? optionsParam.isEnabled : () => true)
+    };
     const logger = function log(param1, ...rest) {
         if (!options.isEnabled())
             return;
-        if (isString(param1))
-            logFn(options.prefix() + options.spacer + param1, ...rest);
+        if (_.isString(param1))
+            options.logFn(options.prefix() + options.spacer + param1, ...rest);
         else
-            logFn(options.prefix() + options.spacerAlt, param1, ...rest);
+            options.logFn(options.prefix() + options.spacerAlt, param1, ...rest);
     };
-    logger.__src = '???'; // WIP to debug module resolution
+    logger.__src = '???'; // don't mind this
     return logger;
 }
 //# sourceMappingURL=index.js.map

@@ -1,41 +1,58 @@
-import { isFunction } from 'lodash'
-import isString from 'lodash/isstring'
-import isObject from 'lodash/isobject'
-
-// http://stackoverflow.com/questions/12766528/build-a-function-object-with-properties-in-typescript
+import * as _ from 'lodash'
 
 //console.log('PREFIXED-LOG hello from ???')
 
+export type LogFn = typeof console.log
+
+export interface PrefixedLoggerOptions {
+	logFn: LogFn
+	spacerAlt: string
+	spacer: string
+	prefix: () => string
+	isEnabled: () => boolean
+}
+
+export interface PrefixedLoggerOptionsParam {
+	spacerAlt?: string
+	spacer?: string
+	prefix?: () => string | string
+	isEnabled?: () => boolean | boolean
+}
+
+// http://stackoverflow.com/questions/12766528/build-a-function-object-with-properties-in-typescript
 export interface PrefixedLogger {
 	(): void
-	__src: string
+	options: PrefixedLoggerOptions
+	__src: string // special string for module consumption experiments
 }
 
 export default function makePrefixedLogger(
 	prefix: Function | string,
-	logFn,
-	options = {}
+	logFnParam: LogFn | PrefixedLoggerOptionsParam,
+	optionsParam?: PrefixedLoggerOptionsParam
 ): PrefixedLogger
 {
-	if (isObject(logFn))
-		[logFn, options] = [undefined, logFn]
-	logFn = logFn || console.log.bind(console)
+	if (_.isObject(logFnParam))
+		[logFnParam, optionsParam] = [undefined, logFnParam]
 
-	options.spacerAlt = options.spacerAlt || options.spacer || ''
-	options.spacer = options.spacer || ' '
-	options.prefix = isFunction(prefix) ? prefix : () => prefix
-	options.isEnabled = isFunction(options.isEnabled) ? options.isEnabled : () => true
-
-	const logger = <PrefixedLogger>function log(param1, ...rest) {
-		if (!options.isEnabled()) return
-
-		if (isString(param1))
-			logFn(options.prefix() + options.spacer + param1, ...rest)
-		else
-			logFn(options.prefix() + options.spacerAlt, param1, ...rest)
+	const options: PrefixedLoggerOptions = {
+		logFn: logFnParam || console.log.bind(console),
+		spacerAlt: optionsParam.spacerAlt || optionsParam.spacer || '',
+		spacer: optionsParam.spacer || ' ',
+		prefix: (_.isFunction(prefix) ? prefix : () => prefix) as () => string,
+		isEnabled: (_.isFunction(optionsParam.isEnabled) ? optionsParam.isEnabled : () => true) as () => boolean
 	}
 
-	logger.__src = '???' // WIP to debug module resolution
+	const logger: PrefixedLogger = <PrefixedLogger>function log(param1: any, ...rest: any[]) {
+		if (!options.isEnabled()) return
+
+		if (_.isString(param1))
+			options.logFn(options.prefix() + options.spacer + param1, ...rest)
+		else
+			options.logFn(options.prefix() + options.spacerAlt, param1, ...rest)
+	}
+
+	logger.__src = '???' // don't mind this
 
 	return logger
 }
