@@ -1,12 +1,12 @@
 export declare type LogFn = typeof console.log;
-export interface PrefixedLoggerOptions {
+export interface PrefixedLoggerParams {
     logFn: LogFn;
     spacerAlt: string;
     spacer: string;
     prefix: () => string;
     isEnabled: () => boolean;
 }
-export interface PrefixedLoggerOptionsParam {
+export interface PrefixedLoggerOptions {
     spacerAlt?: string;
     spacer?: string;
     prefix?: () => string | string;
@@ -14,7 +14,7 @@ export interface PrefixedLoggerOptionsParam {
 }
 export interface PrefixedLogger {
     (): void;
-    options: PrefixedLoggerOptions;
+    options: PrefixedLoggerParams;
     __src: string;
 }
-export default function makePrefixedLogger(prefix: Function | string, logFnParam: LogFn | PrefixedLoggerOptionsParam, optionsParam?: PrefixedLoggerOptionsParam): PrefixedLogger;
+export default function makePrefixedLogger(prefix: Function | string, logFnParam: LogFn | PrefixedLoggerOptions, optionsParam?: PrefixedLoggerOptions): PrefixedLogger;

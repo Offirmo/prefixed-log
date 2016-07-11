@@ -1,5 +1,7 @@
 import * as _ from 'lodash'
 
+//console.log('PREFIXED-LOG hello from ???')
+
 export type LogFn = typeof console.log
 
 export interface PrefixedLoggerParams {

@@ -1,0 +1,3 @@
+
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
