@@ -2,21 +2,26 @@
 ':' //# http://sambal.org/?p=1014 ; exec /usr/bin/env node "$0" "$@"
 'use strict';
 
-const fs = require('fs');
-const del = require('del');
-const rollup = require('rollup');
-const babel = require('rollup-plugin-babel');
-const uglify = require('rollup-plugin-uglify');
-const pkg = require('../package.json');
+const _ = require('lodash')
+const fs = require('fs')
+const del = require('del')
+const rollup = require('rollup')
+const babel = require('rollup-plugin-babel')
+const uglify = require('rollup-plugin-uglify')
+
+const pkg = require('../package.json')
+const tsconfig = require('../tsconfig.json')
 
 const MODULE_NAME = pkg.name;
 
+console.log(`* Building module ${MODULE_NAME}...`)
+
 const bundles = [
-	// ES6 for rollup
-	{
-		format: 'es6', ext: '.es6.js', plugins: [],
+	// ES6 for rollup and its "jsnext:main" package.json property
+	/*{
+		format: 'es6', ext: '.js', plugins: [],
 		babelPresets: ['stage-1'], babelPlugins: []
-	},
+	},*/
 	// "current" version
 	{
 		format: 'cjs', ext: '.node6.js', plugins: [],
@@ -33,10 +38,6 @@ const bundles = [
 		babelPresets: ['es2015'], babelPlugins: []
 	},
 	{
-		format: 'cjs', ext: '.browser.js', plugins: [],
-		babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: []
-	},
-	{
 		format: 'umd', ext: '.umd.js', plugins: [],
 		babelPresets: ['es2015-rollup', 'stage-1'], babelPlugins: [],
 		moduleName: MODULE_NAME
@@ -48,7 +49,31 @@ const bundles = [
 	}
 ];
 
+
+function compile_typescript() {
+	console.log(process.cwd())
+	return new Promise((resolve, reject) => {
+		const options_string = _.map(tsconfig.compilerOptions, (value, key) => `--${key} ${value}`).join(' ')
+		console.log(options_string)
+		resolve(tsc.compile(
+			tsconfig.files,
+			undefined,
+			options_string,
+			reject))
+	})
+}
+
+compile_typescript()
+.then(console.log, console.error)
+.then(() => {
+	process.exit(1)
+})
+
+/*
 let promise = Promise.resolve();
+
+promise = promise.then(() => del(['dist/*']));
+
 
 // Clean up the output directory
 promise = promise.then(() => del(['dist/*']));
@@ -86,3 +111,4 @@ promise = promise.then(() => {
 });
 
 promise.catch(err => console.error(err.stack)); // eslint-disable-line no-console
+*/
