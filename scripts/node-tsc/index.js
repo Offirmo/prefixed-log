@@ -1,6 +1,4 @@
-
-
-// http://www.hacksparrow.com/difference-between-spawn-and-exec-of-node-js-child_process.html
+// this file should work with current node stable (v4 on 2016/07/12)
 
 ///////////////////////////////////////////////////////
 
@@ -25,7 +23,8 @@ module.exports = {
 ///////////////////////////////////////////////////////
 const radix = 'tsc'
 
-function compile(files, options = {}) {
+function compile(files, options) {
+	options = options || {}
 	return new Promise((resolve, reject) => {
 		const options_as_array = _.flatten(_.map(options, (value, key) => {
 			if (value === false)
@@ -36,8 +35,8 @@ function compile(files, options = {}) {
 		}))
 		const params = options_as_array.concat(files)
 
-		let stdout = ''
-		let stderr = ''
+		var stdout = ''
+		var stderr = ''
 		console.log(`Spawn : spawning ${executable}`, params);
 		const spawn_instance = spawn(executable, params, options);
 

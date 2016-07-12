@@ -1,33 +1,19 @@
-//import { isFunction, isString, isObject } from 'lodash.isfunction'
-import isString from 'lodash/isstring'
-import isObject from 'lodash/isobject'
+#!/bin/sh
+':' //# http://sambal.org/?p=1014 ; exec `dirname $0`/../node_modules/.bin/ts-node "$0" "$@"
 
+import makePrefixedLogger from '../src'
 
-//console.log('PREFIXED-LOG hello from ???')
+const logger1 = makePrefixedLogger('* [foo]')
+const logger2 = makePrefixedLogger(() => `[${Date.now()}]`, {
+	spacer: ' > ',
+	spacerAlt: ' >'
+})
+const logger3 = makePrefixedLogger('!!!', console.error.bind(console), {
+	isEnabled: false
+})
 
-function makePrefixedLogger(prefix, logFn, options = {}) {
-	if (isObject(logFn))
-		[logFn, options] = [undefined, logFn]
-	logFn = logFn || console.log.bind(console)
-
-	options.spacerAlt = options.spacerAlt || options.spacer || ''
-	options.spacer = options.spacer || ' '
-	options.prefix = isFunction(prefix) ? prefix : () => prefix
-	options.isEnabled = isFunction(options.isEnabled) ? options.isEnabled : () => true
-
-	const logger = function log(param1, ...rest) {
-		if (!options.isEnabled()) return
-
-		if (isString(param1))
-			logFn(options.prefix() + options.spacer + param1, ...rest)
-		else
-			logFn(options.prefix() + options.spacerAlt, param1, ...rest)
-	}
-
-	logger.__src = '???' // WIP to debug module resolution
-
-	return logger
-}
-
-
-module.exports = makePrefixedLogger
+logger1('Hello using version : "%s"', logger1.__src)
+logger2('Hello again')
+logger1({foo: 'bar'})
+logger2([ 'foo', 'bar'])
+logger3('should not appear')

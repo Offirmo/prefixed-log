@@ -1,13 +1,16 @@
 import * as _ from 'lodash';
 export default function makePrefixedLogger(prefix, logFnParam, optionsParam) {
-    if (_.isObject(logFnParam))
+    if (_.isObject(logFnParam) && !_.isFunction(logFnParam))
         [logFnParam, optionsParam] = [undefined, logFnParam];
+    optionsParam = optionsParam || {};
     const options = {
-        logFn: logFnParam || console.log.bind(console),
+        logFn: logFnParam || optionsParam.logFn || console.log.bind(console),
         spacerAlt: optionsParam.spacerAlt || optionsParam.spacer || '',
         spacer: optionsParam.spacer || ' ',
         prefix: (_.isFunction(prefix) ? prefix : () => prefix),
-        isEnabled: (_.isFunction(optionsParam.isEnabled) ? optionsParam.isEnabled : () => true)
+        isEnabled: (_.isFunction(optionsParam.isEnabled) ?
+            optionsParam.isEnabled :
+            (_.isBoolean(optionsParam.isEnabled) ? (() => optionsParam.isEnabled) : (() => true)))
     };
     const logger = function log(param1, ...rest) {
         if (!options.isEnabled())
@@ -17,6 +20,7 @@ export default function makePrefixedLogger(prefix, logFnParam, optionsParam) {
         else
             options.logFn(options.prefix() + options.spacerAlt, param1, ...rest);
     };
+    logger.options = options;
     logger.__src = '???'; // don't mind this
     return logger;
 }

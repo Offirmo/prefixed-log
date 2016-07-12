@@ -2,6 +2,14 @@
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 
+		"strictNullChecks": true,
+
+
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-preset-es2015-node6": "^0.2.0",
+
+
+    "babel-plugin-transform-es2015-destructuring": "^6.9.0",
+    "babel-plugin-transform-es2015-function-name": "^6.9.0",
+    "babel-plugin-transform-es2015-parameters": "^6.9.0",

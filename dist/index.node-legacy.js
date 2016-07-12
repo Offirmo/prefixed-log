@@ -3,19 +3,22 @@
 var _ = require('lodash');
 
 function makePrefixedLogger(prefix, logFnParam, optionsParam) {
-    if (_.isObject(logFnParam)) {
+    if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) {
         ;
         var _ref = [undefined, logFnParam];
         logFnParam = _ref[0];
         optionsParam = _ref[1];
-    }var options = {
-        logFn: logFnParam || console.log.bind(console),
+    }optionsParam = optionsParam || {};
+    var options = {
+        logFn: logFnParam || optionsParam.logFn || console.log.bind(console),
         spacerAlt: optionsParam.spacerAlt || optionsParam.spacer || '',
         spacer: optionsParam.spacer || ' ',
         prefix: _.isFunction(prefix) ? prefix : function () {
             return prefix;
         },
-        isEnabled: _.isFunction(optionsParam.isEnabled) ? optionsParam.isEnabled : function () {
+        isEnabled: _.isFunction(optionsParam.isEnabled) ? optionsParam.isEnabled : _.isBoolean(optionsParam.isEnabled) ? function () {
+            return optionsParam.isEnabled;
+        } : function () {
             return true;
         }
     };
@@ -28,6 +31,7 @@ function makePrefixedLogger(prefix, logFnParam, optionsParam) {
 
         if (_.isString(param1)) options.logFn.apply(options, [options.prefix() + options.spacer + param1].concat(rest));else options.logFn.apply(options, [options.prefix() + options.spacerAlt, param1].concat(rest));
     };
+    logger.options = options;
     logger.__src = '???'; // don't mind this
     return logger;
 }
