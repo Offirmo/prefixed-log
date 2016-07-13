@@ -15,8 +15,10 @@
     "url": "https://github.com/Offirmo/prefixed-log/issues"
   },
   "homepage": "https://github.com/Offirmo/prefixed-log#readme",
-  "xxmain": "index.js",
-  "main": "dist/src.es2015/index.js",
+  "1main": "dist/src.es2015/index.js",
+  "2main": "dist/index.node-stable.js",
+  "main": "dist/prefixed_log.umd.js",
+  "4main": "index.js",
   "jsnext:main": "dist/src.es2015/index.js",
   "typings": "dist/src.es2015/index.d.ts",
   "browser": "dist/prefixed_log.umd.js",

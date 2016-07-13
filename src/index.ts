@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 
-//console.log('Hello from', __filename, __dirname)
+//console.log('Hello from', __filename)
 
 export type LogFn = typeof console.log
 
