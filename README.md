@@ -68,3 +68,8 @@ This module is aiming at having optimal consumption by :
   * UMD and minification
  
 
+References :
+* https://medium.com/@tarkus/how-to-build-and-publish-es6-modules-today-with-babel-and-rollup-4426d9c7ca71#.5pxa9u2l1
+* https://ponyfoo.com/articles/why-i-write-plain-javascript-modules
+* http://www.2ality.com/2015/12/bundling-modules-future.html
+* https://www.smashingmagazine.com/2016/02/writing-next-generation-reusable-javascript-modules/

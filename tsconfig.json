@@ -3,6 +3,7 @@
 		"allowJs": false,
 		"declaration": true,
 		"listFiles": true,
+		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"outDir": "dist/src.es2015",
@@ -11,7 +12,6 @@
 		"target": "es6"
 	},
 	"files": [
-		"typings/index.d.ts",
 		"src/index.ts"
 	],
 	"exclude": [

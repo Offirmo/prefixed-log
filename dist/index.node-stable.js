@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 
+console.log('Hello from', __filename, __dirname);
 function makePrefixedLogger(prefix, logFnParam, optionsParam) {
     if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) {
         ;

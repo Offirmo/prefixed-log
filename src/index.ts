@@ -1,5 +1,7 @@
 import * as _ from 'lodash'
 
+//console.log('Hello from', __filename, __dirname)
+
 export type LogFn = typeof console.log
 
 // options when creating the logger
