@@ -3,7 +3,6 @@
     typeof define === 'function' && define.amd ? define(['lodash'], factory) :
     (global.prefixed_log = factory(global._));
 }(this, function (_) { 'use strict';
-	console.log('Hello from', __filename)
 
     function makePrefixedLogger(prefix, logFnParam, optionsParam) {
         if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) {
