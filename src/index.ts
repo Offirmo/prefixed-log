@@ -1,11 +1,9 @@
 import * as _ from 'lodash'
 
-//console.log('Hello from', __filename)
-
-export type LogFn = typeof console.log
+type LogFn = typeof console.log
 
 // options when creating the logger
-export interface PrefixedLoggerOptions {
+interface PrefixedLoggerOptions {
 	logFn?: LogFn
 	spacerAlt?: string
 	spacer?: string
@@ -13,7 +11,7 @@ export interface PrefixedLoggerOptions {
 }
 
 // internal logger options
-export interface PrefixedLoggerParams {
+interface PrefixedLoggerParams {
 	logFn: LogFn
 	spacerAlt: string
 	spacer: string
@@ -22,13 +20,13 @@ export interface PrefixedLoggerParams {
 }
 
 // http://stackoverflow.com/questions/12766528/build-a-function-object-with-properties-in-typescript
-export interface PrefixedLogger {
+interface PrefixedLogger {
 	(...rest: any[]): void
 	options: PrefixedLoggerParams
 	__src: string // special string for module consumption experiments
 }
 
-export default function makePrefixedLogger(
+function factory(
 	prefix: Function | string,
 	logFnParam?: LogFn | PrefixedLoggerOptions,
 	optionsParam?: PrefixedLoggerOptions
@@ -62,4 +60,13 @@ export default function makePrefixedLogger(
 	logger.__src = '???' // don't mind this
 
 	return logger
+}
+
+
+export {
+	LogFn,
+	PrefixedLoggerOptions,
+	PrefixedLoggerParams,
+	PrefixedLogger,
+	factory,
 }

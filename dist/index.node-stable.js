@@ -1,8 +1,10 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', { value: true });
+
 var _ = require('lodash');
 
-function makePrefixedLogger(prefix, logFnParam, optionsParam) {
+function factory(prefix, logFnParam, optionsParam) {
     if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) [logFnParam, optionsParam] = [undefined, logFnParam];
     optionsParam = optionsParam || {};
     const options = {
@@ -21,5 +23,5 @@ function makePrefixedLogger(prefix, logFnParam, optionsParam) {
     return logger;
 }
 
-module.exports = makePrefixedLogger;
+exports.factory = factory;
 //# sourceMappingURL=index.node-stable.js.map

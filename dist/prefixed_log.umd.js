@@ -1,10 +1,10 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash')) :
-	typeof define === 'function' && define.amd ? define(['lodash'], factory) :
-	(global.prefixed_log = factory(global._));
-}(this, (function (_) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('lodash')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'lodash'], factory) :
+	(factory((global.prefixed_log = global.prefixed_log || {}),global._));
+}(this, (function (exports,_) { 'use strict';
 
-function makePrefixedLogger(prefix, logFnParam, optionsParam) {
+function factory(prefix, logFnParam, optionsParam) {
     if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) {
         
         var _ref = [undefined, logFnParam];
@@ -38,7 +38,9 @@ function makePrefixedLogger(prefix, logFnParam, optionsParam) {
     return logger;
 }
 
-return makePrefixedLogger;
+exports.factory = factory;
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=prefixed_log.umd.js.map

@@ -26,13 +26,26 @@ npm i --save prefixed-log
 ```
 
 Then in your code:
-* node stable (4): `const makePrefixedLogger = require('prefixed-log')`
-* node legacy (<4): `var makePrefixedLogger = require('prefixed-log/dist/index.node-legacy')`
-* ES2015/ES6 users with rollup should be covered with the "jsnext" entry in package.json, pointing to `dist/src.es2015/index.js`
+* node stable (4+): `const makePrefixedLogger = require('..').factory`
+* node legacy (<4): `var makePrefixedLogger = require('../dist/index.node-legacy').factory`
+* ES2015/ES6: `import { factory as makePrefixedLogger } from 'prefixed-log'`
+
+Note: there are examples in folder `test/`
 
 ## Usage
+Note: there are examples in folder `test/`
 
+Simplest usage:
 ```js
+import { factory as makePrefixedLogger } from 'prefixed-log'
+const logger = makePrefixedLogger('* [foo]')
+
+logger('Hello', 42)     --> * [foo] Hello 42
+```
+
+More advanced usage, specifying a logger:
+```js
+import { factory as makePrefixedLogger } from 'prefixed-log'
 const logger = makePrefixedLogger('* [foo]', console.log.bind(console))
 
 logger('Hello', 42)     --> * [foo] Hello 42
@@ -40,15 +53,9 @@ logger('Hello %d', 33)  --> * [foo] Hello 33
 logger({foo: 'bar'})    --> * [foo] { foo: 'bar' }
 ```
 
-If you just want to console.log, no need to provide the function :
+Another advanced usage, using a dynamic prefix:
 ```js
-const logger = makePrefixedLogger('* [foo]')
-
-logger('Hello', 42)     --> * [foo] Hello 42
-```
-
-Prefix can be a function :
-```js
+import { factory as makePrefixedLogger } from 'prefixed-log'
 const logger = makePrefixedLogger(() => Date.now(), console.log.bind(console))
 
 logger('Hello', 42)     --> 1464255584287 Hello 42

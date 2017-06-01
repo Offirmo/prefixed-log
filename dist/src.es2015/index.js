@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-export default function makePrefixedLogger(prefix, logFnParam, optionsParam) {
+function factory(prefix, logFnParam, optionsParam) {
     if (_.isObject(logFnParam) && !_.isFunction(logFnParam))
         [logFnParam, optionsParam] = [undefined, logFnParam];
     optionsParam = optionsParam || {};
@@ -24,4 +24,5 @@ export default function makePrefixedLogger(prefix, logFnParam, optionsParam) {
     logger.__src = '???'; // don't mind this
     return logger;
 }
+export { factory, };
 //# sourceMappingURL=index.js.map
