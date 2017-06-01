@@ -26,8 +26,8 @@ npm i --save prefixed-log
 ```
 
 Then in your code:
-* node stable (4+): `const makePrefixedLogger = require('..').factory`
-* node legacy (<4): `var makePrefixedLogger = require('../dist/index.node-legacy').factory`
+* node stable (4+): `const makePrefixedLogger = require('prefixed-log').factory`
+* node legacy (<4): `var makePrefixedLogger = require('prefixed-log/dist/index.node-legacy').factory`
 * ES2015/ES6: `import { factory as makePrefixedLogger } from 'prefixed-log'`
 
 Note: there are examples in folder `test/`
