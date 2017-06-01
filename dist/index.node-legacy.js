@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 function makePrefixedLogger(prefix, logFnParam, optionsParam) {
     if (_.isObject(logFnParam) && !_.isFunction(logFnParam)) {
-        ;
+        
         var _ref = [undefined, logFnParam];
         logFnParam = _ref[0];
         optionsParam = _ref[1];
