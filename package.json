@@ -37,6 +37,7 @@
     "chai": "^4.0.1",
     "fs-extra": "^3.0.1",
     "mocha": "^3.4.2",
+    "node-typescript-compiler": "^1.1.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-uglify": "^2.0.1",

@@ -7,7 +7,8 @@ const rollup = require('rollup')
 const rollup_babel = require('rollup-plugin-babel')
 const rollup_uglify = require('rollup-plugin-uglify')
 
-const tsc = require('./node-tsc')
+const tsc = require('node-typescript-compiler')
+
 const package = {
 	json: require('../package.json')
 }
@@ -62,20 +63,17 @@ Promise.resolve()
 .then(() => console.log('SUCCESS'), console.error)
 
 function transpile_typescript_to_es2015() {
-	return tsc.compile(
-		tsconfig.json.files,
-		tsconfig.json.compilerOptions
-	)
+	return tsc.compile({ 'project': '.' })
 }
 
 function transpile_typescript_to_es2015_amd() {
 	return tsc.compile(
-		tsconfig.json.files,
 		Object.assign({}, tsconfig.json.compilerOptions, {
 			'declaration': false,
 			'outDir': 'dist/src.es2015.amd',
 			'module': 'amd'
-		})
+		}),
+		tsconfig.json.files
 	)
 }
 
@@ -103,21 +101,3 @@ function transpile_es2015_to_bundles() {
 	})
 	return Promise.all(allBundles)
 }
-
-
-/*
-let promise = Promise.resolve();
-
-// Copy package.json and LICENSE.txt
-promise = promise.then(() => {
-	delete package.json.private;
-	delete package.json.devDependencies;
-	delete package.json.scripts;
-	delete package.json.eslintConfig;
-	delete package.json.babel;
-	fs.writeFileSync('dist/package.json', JSON.stringify(package.json, null, '  '), 'utf-8');
-	fs.writeFileSync('dist/LICENSE', fs.readFileSync('LICENSE', 'utf-8'), 'utf-8');
-});
-
-promise.catch(err => console.error(err.stack)); // eslint-disable-line no-console
-*/
